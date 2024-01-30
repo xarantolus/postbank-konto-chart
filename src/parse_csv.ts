@@ -117,6 +117,8 @@ export function fromCSV(input: string): FinancialData {
 		}
 	}
 
+	let payment_validator = initial_balance;
+
 	let payments: Payment[] = [];
 	for (let payment of payment_data.data) {
 		let date = parseDate(payment["Buchungstag"]);
@@ -126,6 +128,9 @@ export function fromCSV(input: string): FinancialData {
 		let iban = payment["IBAN / Kontonummer"];
 		let amount = parseFloat(payment["Betrag"].replace(".", "").replace(",", "."));
 
+
+		payment_validator += amount;
+
 		payments.push({
 			date,
 			type,
@@ -134,6 +139,10 @@ export function fromCSV(input: string): FinancialData {
 			iban,
 			amount,
 		});
+	}
+
+	if (Math.abs(payment_validator - final_balance) > 1) {
+		throw `Unsupported file: Payment validator ${payment_validator} does not match final balance ${final_balance}`;
 	}
 
 	return {
