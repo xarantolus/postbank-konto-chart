@@ -14,6 +14,7 @@ export interface Payment {
 	message: string,
 	iban: string,
 	amount: number,
+	currency: string,
 }
 
 export interface FinancialData {
@@ -127,7 +128,7 @@ export function fromCSV(input: string): FinancialData {
 		let message = payment["Verwendungszweck"];
 		let iban = payment["IBAN / Kontonummer"];
 		let amount = parseFloat(payment["Betrag"].replace(".", "").replace(",", "."));
-
+		let currency = payment["Währung"];
 
 		payment_validator += amount;
 
@@ -138,6 +139,7 @@ export function fromCSV(input: string): FinancialData {
 			message,
 			iban,
 			amount,
+			currency,
 		});
 	}
 

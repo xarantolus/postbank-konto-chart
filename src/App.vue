@@ -1,14 +1,15 @@
 <template>
-  <pre v-if="parsedCSV">{{ JSON.stringify(parsedCSV, null, 2) }}</pre>
-  <div v-else @drop="onFileDrop" @dragover.prevent>
-    <h1>Drop a CSV file here</h1>
+  <DataView :data="parsedCSV" v-if="parsedCSV"></DataView>
 
+  <div class="drop-area" v-else @drop="onFileDrop" @dragover.prevent>
+    <h1>Drop a CSV file here</h1>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref, watch } from 'vue'
-import { fromCSV } from './parse_csv'
+import { FinancialData, fromCSV } from './parse_csv'
+import DataView from './components/DataView.vue';
 
 const fileContent = ref<string | null>(null);
 const parsedCSV = ref<FinancialData | null>(null);
@@ -49,7 +50,7 @@ const onFileDrop = (event: DragEvent) => {
 
 
 <style scoped>
-div {
+.drop-area {
   display: flex;
   justify-content: center;
   align-items: center;
