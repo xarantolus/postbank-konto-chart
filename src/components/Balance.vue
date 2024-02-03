@@ -17,10 +17,10 @@ span {
 	white-space: nowrap;
 }
 .positive {
-	color: green;
+	color: #33ff33;
 }
 
 .negative {
-	color: red;
+	color: #ff3333;
 }
 </style>

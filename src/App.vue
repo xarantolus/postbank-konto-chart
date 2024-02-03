@@ -21,18 +21,10 @@ watch(fileContent, (content: string) => {
 });
 
 if (import.meta.hot) {
-  // This code runs before the module is replaced
-  import.meta.hot.dispose((data) => {
-    // Store parsedCSV in the data object
-    data.parsedCSV = parsedCSV.value
-  })
-
-  // This code runs after the module is replaced
-  import.meta.hot.accept((data: any) => {
-    if (data.parsedCSV) {
-      parsedCSV.value = data.parsedCSV
-    }
-  })
+  let last_csv = localStorage.getItem('last-csv');
+  if (last_csv) {
+    fileContent.value = last_csv;
+  }
 }
 
 const onFileDrop = (event: DragEvent) => {
@@ -42,6 +34,9 @@ const onFileDrop = (event: DragEvent) => {
     const reader = new FileReader()
     reader.onload = () => {
       fileContent.value = reader.result as string
+      if (import.meta.hot) {
+        localStorage.setItem('last-csv', fileContent.value as string)
+      }
     }
     reader.readAsText(file)
   }
