@@ -6,6 +6,7 @@ import { formatDateMonthName, formatDateBasic } from '../util';
 import Balance from './Balance.vue';
 import TransactionTable from './TransactionTable.vue';
 import BarChart from './BarChart.vue';
+import LineChart from './LineChart.vue';
 
 defineProps<{ data: FinancialData }>()
 </script>
@@ -17,6 +18,9 @@ defineProps<{ data: FinancialData }>()
   <h2>Monatsübersicht</h2>
   <p>Umsätze vom {{ formatDateMonthName(data.start_date) }} zum {{ formatDateMonthName(data.end_date) }}</p>
   <BarChart :transactions="data.payments" :start_date="data.start_date" :end_date="data.end_date" />
+
+  <h2>Verlauf</h2>
+  <LineChart :transactions="data.payments" :initial_value="data.initial_balance" />
 
   <h2>Tabelle</h2>
   <TransactionTable :transactions="data.payments" />
