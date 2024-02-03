@@ -12,8 +12,15 @@ jobs:
     name: Build Vue
     steps:
     - uses: actions/checkout@v2
-
-    - name: Vue App to Github Pages
-      uses: StruggleYang/VuePagesAction@2.0.0
+    - name: Use Node.js '21.x'
+      uses: actions/setup-node@v2
       with:
-        useyarn: false
+        node-version: "21.x"
+        cache: "npm"
+
+    - id: Build-Vue
+      uses: SerhiiKa/VuePagesAction@1.0.4
+      with:
+        username: 'xarantolus'
+        reponame: 'postbank-konto-chart'
+        token: ${{ secrets.GITHUB_TOKEN }}
