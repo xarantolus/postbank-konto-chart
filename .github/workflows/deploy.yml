@@ -13,10 +13,5 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - id: Build-Vue
-      uses: xRealNeon/VuePagesAction@1.0.1
-      with:
-        username: 'xarantolus'
-        reponame: 'postbank-konto-chart'
-        cname: 'konto.010.one'
-        token: ${{ secrets.GITHUB_TOKEN }}
+    - name: Vue App to Github Pages
+      uses: StruggleYang/VuePagesAction@2.0.0
