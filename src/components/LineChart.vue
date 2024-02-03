@@ -76,7 +76,7 @@ watch(() => isDarkMode.value, (newVal) => {
 
 <template>
 	<div class="chart">
-		<Line :options="chartOptions" :data="chartData" />
+		<Line :options="chartOptions" :data="(chartData as unknown as any)" />
 	</div>
 </template>
 
